@@ -1,10 +1,15 @@
 package org.alkemy.campus.disney.model.Character;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import org.alkemy.campus.disney.core.db.PersitentEntity;
 import org.alkemy.campus.disney.exceptions.Character.InvalidAgeException;
 import org.alkemy.campus.disney.exceptions.Character.InvalidWeigthException;
+import org.alkemy.campus.disney.model.Appareance.Appareance;
 
 @Entity
 @Table(name = "characters")
@@ -15,6 +20,9 @@ public class FictionalCharacter extends PersitentEntity {
     private int age;
     private float weight;
     private String story;
+    @ManyToMany(mappedBy = "characters",
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Set<Appareance> appareances = new HashSet<>();
 
     public FictionalCharacter() {}
 
@@ -88,6 +96,20 @@ public class FictionalCharacter extends PersitentEntity {
 
     public FictionalCharacter setStory(String story) {
         this.story = story;
+        return this;
+    }
+
+    public Set<Appareance> getAppareances() {
+        return this.appareances;
+    }
+
+    public FictionalCharacter addAppareance(Appareance appareance) {
+        getAppareances().add(appareance);
+        return this;
+    }
+
+    public FictionalCharacter removeAppareance(Appareance appareance) {
+        getAppareances().remove(appareance);
         return this;
     }
 
