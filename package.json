@@ -13,8 +13,8 @@
     "verify": "mvn verify",
     "test": "mvn test",
     "release": "standard-version --release-as patch",
-    "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",
+    "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major"
   }
 }
