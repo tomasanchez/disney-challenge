@@ -1,0 +1,20 @@
+{
+  "name": "disney-challenge",
+  "version": "0.0.1",
+  "description": "CHALLENGE BACKEND - Java Spring Boot (API) 🚀",
+  "main": "index.js",
+  "repository": "https://github.com/tomasanchez/disney-challenge.git",
+  "author": "Tomas Sanchez <tosanchez@frba.utn.edu.ar>",
+  "license": "MIT",
+  "dependencies": {
+    "standard-version": "^9.3.2"
+  },
+  "scripts": {
+    "verify": "mvn verify",
+    "test": "mvn test",
+    "release": "standard-version --release-as patch",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch",
+    "release:major": "standard-version --release-as major"
+  }
+}
