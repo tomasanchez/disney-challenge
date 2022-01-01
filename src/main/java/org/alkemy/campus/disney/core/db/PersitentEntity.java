@@ -5,7 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.annotations.Expose;
 
 /**
  * A generic superclass implementation of an Entity persisted in a database.
@@ -14,13 +18,15 @@ import com.google.gson.Gson;
  * @version 1.0
  */
 @MappedSuperclass
-public class PersitentEntity implements Serializable {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public abstract class PersitentEntity implements Serializable {
 
     // --------------------------------------------------------------------------------------------
     // Properties
     // --------------------------------------------------------------------------------------------
 
     @Id
+    @Expose
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -54,6 +60,11 @@ public class PersitentEntity implements Serializable {
 
     @Override
     public String toString() {
-        return new Gson().toJson(this);
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "{}";
+        }
     }
 }
