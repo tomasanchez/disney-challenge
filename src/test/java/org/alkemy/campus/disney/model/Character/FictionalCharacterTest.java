@@ -1,5 +1,6 @@
 package org.alkemy.campus.disney.model.Character;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.alkemy.campus.disney.exceptions.Character.InvalidAgeException;
 import org.alkemy.campus.disney.exceptions.Character.InvalidWeigthException;
@@ -27,5 +28,12 @@ public class FictionalCharacterTest {
         assertThrows(InvalidWeigthException.class, () -> {
             character.setWeight(-1);
         });
+    }
+
+    @Test
+    void characterDoesParseToJson() {
+        assertEquals(
+                "{\"id\":null,\"image\":null,\"name\":null,\"age\":0,\"weight\":0.0,\"story\":null,\"appareances\":[]}",
+                character.toString());
     }
 }
