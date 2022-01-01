@@ -15,6 +15,10 @@ import org.alkemy.campus.disney.model.Appareance.Appareance;
 @Table(name = "characters")
 public class FictionalCharacter extends PersitentEntity {
 
+    // --------------------------------------------------------------------------------------------
+    // Properties
+    // --------------------------------------------------------------------------------------------
+
     private String image;
     private String name;
     private int age;
@@ -24,11 +28,20 @@ public class FictionalCharacter extends PersitentEntity {
             cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<Appareance> appareances = new HashSet<>();
 
+    // --------------------------------------------------------------------------------------------
+    // Constructors
+    // --------------------------------------------------------------------------------------------
+
+
     public FictionalCharacter() {}
 
     public FictionalCharacter(String name) {
         setName(name);
     }
+
+    // --------------------------------------------------------------------------------------------
+    // Getters & Setters
+    // --------------------------------------------------------------------------------------------
 
     public String getImage() {
         return image;
@@ -102,6 +115,10 @@ public class FictionalCharacter extends PersitentEntity {
     public Set<Appareance> getAppareances() {
         return this.appareances;
     }
+
+    // --------------------------------------------------------------------------------------------
+    // Relational Methods
+    // --------------------------------------------------------------------------------------------
 
     public FictionalCharacter addAppareance(Appareance appareance) {
         getAppareances().add(appareance);

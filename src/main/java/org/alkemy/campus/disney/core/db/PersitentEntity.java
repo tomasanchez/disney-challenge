@@ -7,12 +7,26 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import com.google.gson.Gson;
 
+/**
+ * A generic superclass implementation of an Entity persisted in a database.
+ * 
+ * @author Tomás Sánchez
+ * @version 1.0
+ */
 @MappedSuperclass
 public class PersitentEntity implements Serializable {
+
+    // --------------------------------------------------------------------------------------------
+    // Properties
+    // --------------------------------------------------------------------------------------------
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    // --------------------------------------------------------------------------------------------
+    // Getters & Setters
+    // --------------------------------------------------------------------------------------------
 
     /**
      * Obtains the entity's database-identification property.
@@ -23,10 +37,20 @@ public class PersitentEntity implements Serializable {
         return id;
     }
 
+    /**
+     * Sets an entity's database identifier.
+     * 
+     * @param id to be set
+     * @return the persistent entity.
+     */
     public PersitentEntity setId(Long id) {
         this.id = id;
         return this;
     }
+
+    // --------------------------------------------------------------------------------------------
+    // Overrides
+    // --------------------------------------------------------------------------------------------
 
     @Override
     public String toString() {

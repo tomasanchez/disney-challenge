@@ -27,21 +27,30 @@ import org.alkemy.campus.disney.model.Character.FictionalCharacter;
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Appareance extends PersitentEntity {
 
+    // --------------------------------------------------------------------------------------------
+    // Properties
+    // --------------------------------------------------------------------------------------------
+
     private String image;
     private String title;
-
     @Column(name = "creationDate", columnDefinition = "DATE")
     private LocalDate creationDate;
-
     private float rating;
-
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "characters_appareances", joinColumns = @JoinColumn(name = "appareance"),
             inverseJoinColumns = @JoinColumn(name = "character"))
     Set<FictionalCharacter> characters = new HashSet<>();
 
+    // --------------------------------------------------------------------------------------------
+    // Constructors
+    // --------------------------------------------------------------------------------------------
+
     public Appareance() {}
+
+    // --------------------------------------------------------------------------------------------
+    // Getters & Setters
+    // --------------------------------------------------------------------------------------------
 
     public String getImage() {
         return image;
@@ -110,6 +119,10 @@ public abstract class Appareance extends PersitentEntity {
     public Set<FictionalCharacter> getCharacters() {
         return characters;
     }
+
+    // --------------------------------------------------------------------------------------------
+    // Relational Methods
+    // --------------------------------------------------------------------------------------------
 
     public Appareance addCharacter(FictionalCharacter character) {
         getCharacters().add(character);
