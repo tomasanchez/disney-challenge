@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.alkemy.campus.disney.core.db.PersitentEntity;
 import org.alkemy.campus.disney.exceptions.MandatoryPropertyException;
 import org.alkemy.campus.disney.model.Appareance.Appareance;
@@ -26,7 +27,7 @@ public class Genre extends PersitentEntity {
 
     private String name;
     private String image;
-
+    @JsonBackReference
     @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY)
     private Set<Appareance> apparances = new HashSet<>();
 

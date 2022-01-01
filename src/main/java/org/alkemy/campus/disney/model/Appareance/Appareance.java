@@ -17,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.alkemy.campus.disney.core.db.PersitentEntity;
 import org.alkemy.campus.disney.exceptions.MandatoryPropertyException;
 import org.alkemy.campus.disney.exceptions.Appareance.InvalidRatingException;
@@ -38,11 +40,13 @@ public abstract class Appareance extends PersitentEntity {
     @Column(name = "creationDate", columnDefinition = "DATE")
     private LocalDate creationDate;
     private float rating;
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "characters_appareances", joinColumns = @JoinColumn(name = "appareance"),
             inverseJoinColumns = @JoinColumn(name = "character"))
     Set<FictionalCharacter> characters = new HashSet<>();
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "genre")
     private Genre genre;

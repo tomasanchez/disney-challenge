@@ -6,10 +6,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.alkemy.campus.disney.core.db.PersitentEntity;
 import org.alkemy.campus.disney.exceptions.Character.InvalidAgeException;
 import org.alkemy.campus.disney.exceptions.Character.InvalidWeigthException;
 import org.alkemy.campus.disney.model.Appareance.Appareance;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "characters")
@@ -24,8 +27,10 @@ public class FictionalCharacter extends PersitentEntity {
     private int age;
     private float weight;
     private String story;
+    @JsonManagedReference
     @ManyToMany(mappedBy = "characters",
             cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @Fetch(FetchMode.JOIN)
     private Set<Appareance> appareances = new HashSet<>();
 
     // --------------------------------------------------------------------------------------------
