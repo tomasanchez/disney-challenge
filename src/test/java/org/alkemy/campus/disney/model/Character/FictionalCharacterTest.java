@@ -16,7 +16,7 @@ public class FictionalCharacterTest {
     }
 
     @Test
-    void characterCannotHaveLessThan0Years() {
+    void characterCannotBeLessThan0Years() {
         assertThrows(InvalidAgeException.class, () -> {
             character.setAge(-1);
         });
