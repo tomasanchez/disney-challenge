@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.alkemy.campus.disney.core.db.PersitentEntity;
 import org.alkemy.campus.disney.exceptions.Character.InvalidAgeException;
 import org.alkemy.campus.disney.exceptions.Character.InvalidWeigthException;
-import org.alkemy.campus.disney.model.Appareance.Appareance;
+import org.alkemy.campus.disney.model.Appareance.Appearance;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -31,7 +31,7 @@ public class FictionalCharacter extends PersitentEntity {
     @ManyToMany(mappedBy = "characters",
             cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @Fetch(FetchMode.JOIN)
-    private Set<Appareance> appareances = new HashSet<>();
+    private Set<Appearance> appearances = new HashSet<>();
 
     // --------------------------------------------------------------------------------------------
     // Constructors
@@ -117,21 +117,21 @@ public class FictionalCharacter extends PersitentEntity {
         return this;
     }
 
-    public Set<Appareance> getAppareances() {
-        return this.appareances;
+    public Set<Appearance> getAppearances() {
+        return this.appearances;
     }
 
     // --------------------------------------------------------------------------------------------
     // Relational Methods
     // --------------------------------------------------------------------------------------------
 
-    public FictionalCharacter addAppareance(Appareance appareance) {
-        getAppareances().add(appareance);
+    public FictionalCharacter addAppearance(Appearance appareance) {
+        getAppearances().add(appareance);
         return this;
     }
 
-    public FictionalCharacter removeAppareance(Appareance appareance) {
-        getAppareances().remove(appareance);
+    public FictionalCharacter removeAppearance(Appearance appareance) {
+        getAppearances().remove(appareance);
         return this;
     }
 

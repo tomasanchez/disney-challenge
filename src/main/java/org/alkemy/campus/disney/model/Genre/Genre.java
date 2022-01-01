@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.alkemy.campus.disney.core.db.PersitentEntity;
 import org.alkemy.campus.disney.exceptions.MandatoryPropertyException;
-import org.alkemy.campus.disney.model.Appareance.Appareance;
+import org.alkemy.campus.disney.model.Appareance.Appearance;
 
 /**
  * Represents apparance genres types.
@@ -29,7 +29,7 @@ public class Genre extends PersitentEntity {
     private String image;
     @JsonBackReference
     @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY)
-    private Set<Appareance> apparances = new HashSet<>();
+    private Set<Appearance> appearances = new HashSet<>();
 
     // --------------------------------------------------------------------------------------------
     // Constructors

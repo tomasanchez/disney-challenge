@@ -5,5 +5,5 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("1")
-public class Movie extends Appareance {
+public class Movie extends Appearance {
 }

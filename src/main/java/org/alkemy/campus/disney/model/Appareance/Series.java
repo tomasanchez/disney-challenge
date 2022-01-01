@@ -5,6 +5,6 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("2")
-public class Series extends Appareance {
+public class Series extends Appearance {
 
 }

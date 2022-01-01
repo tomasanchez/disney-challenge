@@ -26,10 +26,10 @@ import org.alkemy.campus.disney.model.Character.FictionalCharacter;
 import org.alkemy.campus.disney.model.Genre.Genre;
 
 @Entity
-@Table(name = "appareances")
+@Table(name = "appearances")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.INTEGER)
-public abstract class Appareance extends PersitentEntity {
+public abstract class Appearance extends PersitentEntity {
 
     // --------------------------------------------------------------------------------------------
     // Properties
@@ -55,7 +55,7 @@ public abstract class Appareance extends PersitentEntity {
     // Constructors
     // --------------------------------------------------------------------------------------------
 
-    public Appareance() {}
+    public Appearance() {}
 
     // --------------------------------------------------------------------------------------------
     // Getters & Setters
@@ -65,7 +65,7 @@ public abstract class Appareance extends PersitentEntity {
         return image;
     }
 
-    public Appareance setImage(String image) {
+    public Appearance setImage(String image) {
         this.image = image;
         return this;
     }
@@ -81,7 +81,7 @@ public abstract class Appareance extends PersitentEntity {
      * @return the appareance
      * @throws MandatoryPropertyException
      */
-    public Appareance setTitle(String title) {
+    public Appearance setTitle(String title) {
         this.title = Objects.requireNonNull(title, "Title cannot be null");
 
         if (this.title.isEmpty()) {
@@ -95,7 +95,7 @@ public abstract class Appareance extends PersitentEntity {
         return creationDate;
     }
 
-    public Appareance setCreationDate(LocalDate creationDate) {
+    public Appearance setCreationDate(LocalDate creationDate) {
         this.creationDate = Objects.requireNonNull(creationDate, "Creation date cannot be empty");
         return this;
     }
@@ -108,7 +108,7 @@ public abstract class Appareance extends PersitentEntity {
         return this.genre;
     }
 
-    public Appareance setGenre(Genre genre) {
+    public Appearance setGenre(Genre genre) {
         this.genre = Objects.requireNonNull(genre);
         return this;
     }
@@ -120,7 +120,7 @@ public abstract class Appareance extends PersitentEntity {
      * @return the appareance
      * @throws InvalidRatingException
      */
-    public Appareance setRating(float rating) {
+    public Appearance setRating(float rating) {
 
         if (rating < 0) {
             throw new InvalidRatingException("The rating cannot be negative.");
@@ -142,15 +142,15 @@ public abstract class Appareance extends PersitentEntity {
     // Relational Methods
     // --------------------------------------------------------------------------------------------
 
-    public Appareance addCharacter(FictionalCharacter character) {
+    public Appearance addCharacter(FictionalCharacter character) {
         getCharacters().add(character);
-        character.addAppareance(this);
+        character.addAppearance(this);
         return this;
     }
 
-    public Appareance removeCharacter(FictionalCharacter character) {
+    public Appearance removeCharacter(FictionalCharacter character) {
         getCharacters().remove(character);
-        character.removeAppareance(this);
+        character.removeAppearance(this);
         return this;
     }
 }
