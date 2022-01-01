@@ -1,9 +1,15 @@
 package org.alkemy.campus.disney.model.Genre;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import org.alkemy.campus.disney.core.db.PersitentEntity;
 import org.alkemy.campus.disney.exceptions.MandatoryPropertyException;
+import org.alkemy.campus.disney.model.Appareance.Appareance;
 
 /**
  * Represents apparance genres types.
@@ -11,6 +17,7 @@ import org.alkemy.campus.disney.exceptions.MandatoryPropertyException;
  * @author Tomás Sánchez
  */
 @Entity
+@Table(name = "genres")
 public class Genre extends PersitentEntity {
 
     // --------------------------------------------------------------------------------------------
@@ -19,6 +26,9 @@ public class Genre extends PersitentEntity {
 
     private String name;
     private String image;
+
+    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY)
+    private Set<Appareance> apparances = new HashSet<>();
 
     // --------------------------------------------------------------------------------------------
     // Constructors

@@ -15,11 +15,13 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.alkemy.campus.disney.core.db.PersitentEntity;
 import org.alkemy.campus.disney.exceptions.MandatoryPropertyException;
 import org.alkemy.campus.disney.exceptions.Appareance.InvalidRatingException;
 import org.alkemy.campus.disney.model.Character.FictionalCharacter;
+import org.alkemy.campus.disney.model.Genre.Genre;
 
 @Entity
 @Table(name = "appareances")
@@ -41,6 +43,9 @@ public abstract class Appareance extends PersitentEntity {
     @JoinTable(name = "characters_appareances", joinColumns = @JoinColumn(name = "appareance"),
             inverseJoinColumns = @JoinColumn(name = "character"))
     Set<FictionalCharacter> characters = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "genre")
+    private Genre genre;
 
     // --------------------------------------------------------------------------------------------
     // Constructors
@@ -93,6 +98,15 @@ public abstract class Appareance extends PersitentEntity {
 
     public float getRating() {
         return rating;
+    }
+
+    public Genre getGenre() {
+        return this.genre;
+    }
+
+    public Appareance setGenre(Genre genre) {
+        this.genre = Objects.requireNonNull(genre);
+        return this;
     }
 
     /**
