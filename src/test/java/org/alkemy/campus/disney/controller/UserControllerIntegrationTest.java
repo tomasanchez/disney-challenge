@@ -42,7 +42,7 @@ public class UserControllerIntegrationTest {
 
   @Test
   public void whenPostRequestToUsersAndInValidUser_thenCorrectResponse() throws Exception {
-    String user = "{\"password\": null, \"mail\" : \"bob@domain.com\"}";
+    String user = "{\"password\": \"\", \"mail\" : \"bob@domain.com\"}";
 
     mockMvc
         .perform(MockMvcRequestBuilders.post(route.concat("register")).content(user)
