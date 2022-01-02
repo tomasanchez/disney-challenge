@@ -2,7 +2,7 @@ package org.alkemy.campus.disney.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.alkemy.campus.disney.auth.User;
+import org.alkemy.campus.disney.auth.DUser;
 import org.alkemy.campus.disney.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,13 +26,8 @@ public class UserController {
   UserRepository userRepository;
 
   @PostMapping(path = "/register", produces = "application/json")
-  ResponseEntity<String> registerUser(@Validated @RequestBody User user) {
-    return ResponseEntity.ok(userRepository.save(user).toString());
-  }
-
-  @GetMapping(path = "/users", produces = "application/json")
-  ResponseEntity<String> getUsers() {
-    return ResponseEntity.ok("[]");
+  ResponseEntity<String> registerUser(@Validated @RequestBody DUser user) {
+    return ResponseEntity.ok(user.toString());
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)

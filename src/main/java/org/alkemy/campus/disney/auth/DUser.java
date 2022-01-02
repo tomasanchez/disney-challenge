@@ -1,6 +1,11 @@
 package org.alkemy.campus.disney.auth;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -8,7 +13,7 @@ import org.alkemy.campus.disney.core.db.PersitentEntity;
 import org.alkemy.campus.disney.tools.validation.email.ValidEmail;
 
 @Entity
-public class User extends PersitentEntity {
+public class DUser extends PersitentEntity {
 
   // --------------------------------------------------------------------------------------------
   // Properties
@@ -23,11 +28,14 @@ public class User extends PersitentEntity {
   @NotBlank(message = "A password must be provided")
   private String password;
   private boolean isVerified;
+  @ElementCollection
+  @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user"))
+  private List<String> roles = new ArrayList<String>();
 
   // --------------------------------------------------------------------------------------------
   // Constructors
   // --------------------------------------------------------------------------------------------'
-  public User() {}
+  public DUser() {}
 
   // --------------------------------------------------------------------------------------------
   // Getters & Setters
@@ -37,7 +45,7 @@ public class User extends PersitentEntity {
     return mail;
   }
 
-  public User setMail(String mail) {
+  public DUser setMail(String mail) {
     this.mail = mail;
     return this;
   }
@@ -46,7 +54,7 @@ public class User extends PersitentEntity {
     return password;
   }
 
-  public User setPassword(String password) {
+  public DUser setPassword(String password) {
     this.password = password;
     return this;
   }
@@ -55,9 +63,13 @@ public class User extends PersitentEntity {
     return this.isVerified;
   }
 
-  public User setIsVerified(boolean isVerified) {
+  public DUser setIsVerified(boolean isVerified) {
     this.isVerified = isVerified;
     return this;
+  }
+
+  public List<String> getRoles() {
+    return this.roles;
   }
 
 }
