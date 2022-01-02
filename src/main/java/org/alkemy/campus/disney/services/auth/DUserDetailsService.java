@@ -36,8 +36,8 @@ public class DUserDetailsService implements UserDetailsService {
     boolean accountNonLocked = true;
 
     return new org.springframework.security.core.userdetails.User(user.getMail(),
-        user.getPassword().toLowerCase(), enabled, accountNonExpired, credentialsNonExpired,
-        accountNonLocked, getAuthorities(user.getRoles()));
+        user.getPassword(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,
+        getAuthorities(user.getRoles()));
   }
 
   private static List<GrantedAuthority> getAuthorities(List<String> roles) {
