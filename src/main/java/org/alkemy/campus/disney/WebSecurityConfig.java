@@ -42,9 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }).and();
 
     // Allow all into /auth/
-    http.authorizeRequests().antMatchers("/auth/**").permitAll();
-    // Restrict all other routes
-    http.authorizeHttpRequests().anyRequest().authenticated();
+    http.authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
     // Add JWT token filter
     http.addFilter(tokenFilter);
   }
