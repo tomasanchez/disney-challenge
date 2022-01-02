@@ -65,7 +65,7 @@ public class UserControllerIntegrationTest {
     mockMvc
         .perform(MockMvcRequestBuilders.post(route.concat("register"))
             .content(existentUser.toString()).contentType(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.status().isConflict())
         .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.jsonPath("$.mail",
             Is.is("The indicated mail address is already in use")));
