@@ -1,5 +1,6 @@
 package org.alkemy.campus.disney.services.auth;
 
+import java.util.List;
 import java.util.Objects;
 import javax.transaction.Transactional;
 import org.alkemy.campus.disney.auth.DUser;
@@ -35,8 +36,16 @@ public class DUserAuthService implements AuthenticationService {
     return repository.save(user);
   }
 
+  public List<DUser> getUsers() {
+    return (List<DUser>) repository.findAll();
+  }
+
+  public DUser getUser(String email) {
+    return repository.findByMail(email);
+  }
+
 
   private boolean emailExists(String email) {
-    return !Objects.isNull(repository.findByMail(email));
+    return !Objects.isNull(getUser(email));
   }
 }
