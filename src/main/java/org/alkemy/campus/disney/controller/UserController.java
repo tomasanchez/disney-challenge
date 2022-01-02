@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.alkemy.campus.disney.auth.DUser;
 import org.alkemy.campus.disney.exceptions.auth.UserAlreadyExistsException;
-import org.alkemy.campus.disney.services.auth.UserRegistrationService;
+import org.alkemy.campus.disney.services.auth.DUserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
   @Autowired
-  UserRegistrationService uService;
+  DUserAuthService uService;
 
   @PostMapping(path = "/register", produces = "application/json")
   ResponseEntity<DUser> registerUser(@Validated @RequestBody DUser user)
@@ -33,6 +33,16 @@ public class UserController {
 
     return new ResponseEntity<>(user, HttpStatus.CREATED);
   }
+
+  @PostMapping(path = "/login")
+  ResponseEntity<?> logIn(@Validated @RequestBody DUser user) {
+
+
+
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(MethodArgumentNotValidException.class)

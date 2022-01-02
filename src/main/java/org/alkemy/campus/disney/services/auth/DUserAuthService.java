@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-public class UserRegistrationService implements UserRegister {
+public class DUserAuthService implements AuthenticationService {
 
   @Autowired
   private UserRepository repository;
