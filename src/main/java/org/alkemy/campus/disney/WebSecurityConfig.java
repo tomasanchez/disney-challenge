@@ -2,6 +2,7 @@ package org.alkemy.campus.disney;
 
 import javax.servlet.http.HttpServletResponse;
 import org.alkemy.campus.disney.filter.TokenAuthenticationFilter;
+import org.alkemy.campus.disney.filter.TokenAuthorizationFilter;
 import org.alkemy.campus.disney.services.auth.DUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -26,9 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     // Set Filter URL
-    TokenAuthenticationFilter tokenFilter =
+    TokenAuthenticationFilter tokenAuthenticationFilter =
         new TokenAuthenticationFilter(authenticationManagerBean());
-    tokenFilter.setFilterProcessesUrl("/auth/login");
+    tokenAuthenticationFilter.setFilterProcessesUrl("/auth/login");
 
     // Enable CORS and disable CSRF
     http.cors().and().csrf().disable();
@@ -42,9 +44,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }).and();
 
     // Allow all into /auth/
-    http.authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
-    // Add JWT token filter
-    http.addFilter(tokenFilter);
+    http.authorizeRequests().antMatchers("/auth/**").permitAll()
+        // For all other routes, requiere authentication
+        .anyRequest().authenticated();
+    // Add JWT Token Authorization filter
+    http.addFilterBefore(new TokenAuthorizationFilter(),
+        UsernamePasswordAuthenticationFilter.class);
+    // Add JWT Token Authentication filter
+    http.addFilter(tokenAuthenticationFilter);
   }
 
   @Override
