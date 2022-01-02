@@ -34,8 +34,7 @@ public class UserControllerIntegrationTest {
     mockMvc
         .perform(MockMvcRequestBuilders.post(route.concat("register")).content(user)
             .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
+        .andExpect(MockMvcResultMatchers.status().isCreated());
   }
 
   @Test
