@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.alkemy.campus.disney.core.db.PersitentEntity;
 import org.alkemy.campus.disney.exceptions.MandatoryPropertyException;
-import org.alkemy.campus.disney.exceptions.Appareance.InvalidRatingException;
+import org.alkemy.campus.disney.exceptions.appearance.InvalidRatingException;
 import org.alkemy.campus.disney.model.Character.FictionalCharacter;
 import org.alkemy.campus.disney.model.Genre.Genre;
 

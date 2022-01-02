@@ -1,4 +1,4 @@
-package org.alkemy.campus.disney.exceptions.Character;
+package org.alkemy.campus.disney.exceptions.character;
 
 public class InvalidWeigthException extends RuntimeException {
     public InvalidWeigthException() {

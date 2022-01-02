@@ -1,4 +1,4 @@
-package org.alkemy.campus.disney.exceptions.Appareance;
+package org.alkemy.campus.disney.exceptions.appearance;
 
 public class InvalidRatingException extends RuntimeException {
 
