@@ -102,7 +102,8 @@ public class CharacterProviderService {
   // --------------------------------------------------------------------------------------------
 
   public void delete(long id) {
-    characterRepository.deleteById(getCharacter(id).getId());
+    characterRepository.save(getCharacter(id).detachRelationShips());
+    characterRepository.deleteById(id);
   }
 
   // --------------------------------------------------------------------------------------------

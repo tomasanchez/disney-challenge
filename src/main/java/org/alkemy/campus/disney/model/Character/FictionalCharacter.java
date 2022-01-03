@@ -163,6 +163,11 @@ public class FictionalCharacter extends PersitentEntity {
 
     return this;
   }
+
+  public FictionalCharacter detachRelationShips() {
+    getAppearances().forEach(a -> a.removeCharacter(this));
+    return this;
+  }
   // --------------------------------------------------------------------------------------------
   // Relational Methods
   // --------------------------------------------------------------------------------------------
