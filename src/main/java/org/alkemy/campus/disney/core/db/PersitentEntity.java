@@ -52,6 +52,16 @@ public abstract class PersitentEntity implements Serializable {
     return this;
   }
 
+  /**
+   * Verifies if an entity matches an id.
+   * 
+   * @param id to be match
+   * @return wether is the entitity identified or not
+   */
+  public boolean matches(long id) {
+    return getId() == id;
+  }
+
   // --------------------------------------------------------------------------------------------
   // Overrides
   // --------------------------------------------------------------------------------------------
@@ -65,4 +75,5 @@ public abstract class PersitentEntity implements Serializable {
       return "{}";
     }
   }
+
 }

@@ -1,6 +1,8 @@
 package org.alkemy.campus.disney.services.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
@@ -34,8 +36,49 @@ public class CharacterProviderService {
   }
 
   public List<?> getCharacters() {
-    return characterRepository.findAll().stream().map(FictionalCharacter::toShortMap)
-        .collect(Collectors.toList());
+    return getCharacters(null, null, null);
+  }
+
+  public List<?> getCharacters(String name, Integer age, Long movies) {
+
+    boolean hasName = !Objects.isNull(name);
+    boolean hasAge = !Objects.isNull(age);
+    boolean hasMovies = !Objects.isNull(movies);
+
+    if (!hasName && !hasAge && !hasMovies) {
+      return shortenCharacters(characterRepository.findAll());
+    }
+
+    if (hasName && !hasAge && !hasMovies) {
+      return shortenCharacters(characterRepository.findByName(name));
+    }
+
+    if (!hasName && hasAge && !hasMovies) {
+      return shortenCharacters(characterRepository.findByAge(age));
+    }
+
+    if (!hasName && !hasAge && hasMovies) {
+      return shortenCharacters(findByAppearance(movies));
+    }
+
+    if (hasName && hasAge && !hasMovies) {
+      return shortenCharacters(characterRepository.findByNameAndAge(name, age));
+    }
+
+    if (hasName && hasAge && hasMovies) {
+      return shortenCharacters(
+          filterByAppearance(characterRepository.findByNameAndAge(name, age), movies));
+    }
+
+    if (hasName && !hasAge && hasMovies) {
+      return shortenCharacters(filterByAppearance(characterRepository.findByName(name), movies));
+    }
+
+    if (!hasName && hasAge && hasMovies) {
+      return shortenCharacters(filterByAppearance(characterRepository.findByAge(age), movies));
+    }
+
+    return new ArrayList<>();
   }
 
   // --------------------------------------------------------------------------------------------
@@ -62,4 +105,23 @@ public class CharacterProviderService {
     characterRepository.deleteById(getCharacter(id).getId());
   }
 
+  // --------------------------------------------------------------------------------------------
+  // Internal Methods
+  // --------------------------------------------------------------------------------------------
+
+  private List<?> shortenCharacters(List<FictionalCharacter> characters) {
+    return characters.stream().map(FictionalCharacter::toShortMap).collect(Collectors.toList());
+  }
+
+
+  private List<FictionalCharacter> findByAppearance(long id) {
+    return filterByAppearance(characterRepository.findAll(), id);
+  }
+
+
+  private List<FictionalCharacter> filterByAppearance(List<FictionalCharacter> characters,
+      long id) {
+    return characters.stream().filter(c -> c.getAppearances().stream().anyMatch(a -> a.matches(id)))
+        .collect(Collectors.toList());
+  }
 }

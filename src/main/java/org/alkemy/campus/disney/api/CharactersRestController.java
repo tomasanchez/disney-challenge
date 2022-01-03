@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -33,9 +34,10 @@ public class CharactersRestController extends BaseRestController {
   // Get
   // --------------------------------------------------------------------------------------------
 
-  @GetMapping()
-  public ResponseEntity<List<?>> getCharacters() {
-    return ResponseEntity.ok(characterService.getCharacters());
+  @GetMapping(produces = "application/json")
+  public ResponseEntity<List<?>> getCharacters(@RequestParam(required = false) String name,
+      @RequestParam(required = false) Integer age, @RequestParam(required = false) Long movies) {
+    return ResponseEntity.ok(characterService.getCharacters(name, age, movies));
   }
 
 
