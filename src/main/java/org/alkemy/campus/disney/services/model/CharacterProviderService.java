@@ -59,7 +59,7 @@ public class CharacterProviderService {
   // --------------------------------------------------------------------------------------------
 
   public void delete(long id) {
-    characterRepository.deleteById(id);
+    characterRepository.deleteById(getCharacter(id).getId());
   }
 
 }
