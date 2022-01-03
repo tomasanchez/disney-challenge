@@ -22,16 +22,16 @@ public class DisneyApiApplication {
   }
 
   @Bean
-  public CommandLineRunner demo(CharacterRepository repository, UserRepository userRepository) {
+  public CommandLineRunner demo(CharacterRepository fcRepository, UserRepository userRepository) {
     return (args) -> {
 
       // save a few characters
-      if (repository.count() == 0) {
+      if (fcRepository.count() == 0) {
         log.info("Saving Characters...");
-        repository.save(new FictionalCharacter("Tony"));
-        repository.save(new FictionalCharacter("Strange"));
-        repository.save(new FictionalCharacter("Peter"));
-        repository.save(new FictionalCharacter("Thor"));
+        fcRepository.save(new FictionalCharacter("Tony"));
+        fcRepository.save(new FictionalCharacter("Strange"));
+        fcRepository.save(new FictionalCharacter("Peter"));
+        fcRepository.save(new FictionalCharacter("Thor"));
         log.info("Characters saved");
         log.info("");
       }
