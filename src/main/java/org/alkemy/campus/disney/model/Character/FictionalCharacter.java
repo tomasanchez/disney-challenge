@@ -1,6 +1,8 @@
 package org.alkemy.campus.disney.model.Character;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -121,6 +123,16 @@ public class FictionalCharacter extends PersitentEntity {
     return this.appearances;
   }
 
+  // --------------------------------------------------------------------------------------------
+  // Methods
+  // --------------------------------------------------------------------------------------------
+
+  public Map<String, String> toShortMap() {
+    Map<String, String> shortMap = new HashMap<>();
+    shortMap.put("image", this.getImage());
+    shortMap.put("name", this.getName());
+    return shortMap;
+  }
   // --------------------------------------------------------------------------------------------
   // Relational Methods
   // --------------------------------------------------------------------------------------------

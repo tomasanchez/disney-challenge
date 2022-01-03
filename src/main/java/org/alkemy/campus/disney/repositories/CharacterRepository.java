@@ -7,6 +7,9 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CharacterRepository extends CrudRepository<FictionalCharacter, Long> {
 
-    List<FictionalCharacter> findByName(String name);
+  List<FictionalCharacter> findByName(String name);
+
+  @Override
+  List<FictionalCharacter> findAll();
 
 }
