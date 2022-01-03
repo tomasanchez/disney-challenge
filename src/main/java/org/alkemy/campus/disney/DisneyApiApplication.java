@@ -1,7 +1,7 @@
 package org.alkemy.campus.disney;
 
-import org.alkemy.campus.disney.auth.DUser;
-import org.alkemy.campus.disney.model.Character.FictionalCharacter;
+import org.alkemy.campus.disney.app.Bootstrap;
+import org.alkemy.campus.disney.repositories.AppearanceRepository;
 import org.alkemy.campus.disney.repositories.CharacterRepository;
 import org.alkemy.campus.disney.repositories.UserRepository;
 import org.slf4j.Logger;
@@ -10,7 +10,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class DisneyApiApplication {
@@ -22,16 +21,16 @@ public class DisneyApiApplication {
   }
 
   @Bean
-  public CommandLineRunner demo(CharacterRepository fcRepository, UserRepository userRepository) {
+  public CommandLineRunner demo(CharacterRepository fcRepository, UserRepository userRepository,
+      AppearanceRepository movieRepository) {
     return (args) -> {
+
+      Bootstrap bs = new Bootstrap(fcRepository, userRepository, movieRepository);
 
       // save a few characters
       if (fcRepository.count() == 0) {
         log.info("Saving Characters...");
-        fcRepository.save(new FictionalCharacter("Tony"));
-        fcRepository.save(new FictionalCharacter("Strange"));
-        fcRepository.save(new FictionalCharacter("Peter"));
-        fcRepository.save(new FictionalCharacter("Thor"));
+        bs.demoCharacters();
         log.info("Characters saved");
         log.info("");
       }
@@ -40,11 +39,16 @@ public class DisneyApiApplication {
       if (userRepository.count() == 0) {
         log.info("Creating Admin User...");
         log.info("mail= admin@alkemy.org; password= admin");
-        DUser user = new DUser();
-        user.getRoles().add("ADMIN");
-        userRepository.save(user.setMail("admin@alkemy.org")
-            .setPassword(new BCryptPasswordEncoder().encode("admin")));
+        bs.demoUsers();
         log.info("Admin created");
+        log.info("");
+      }
+
+      // Save an admin user
+      if (movieRepository.count() == 0) {
+        log.info("Saving Movies...");
+        bs.demoMovies();
+        log.info("Solo movies created");
         log.info("");
       }
 
