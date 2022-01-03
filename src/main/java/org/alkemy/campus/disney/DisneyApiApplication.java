@@ -1,13 +1,16 @@
 package org.alkemy.campus.disney;
 
+import org.alkemy.campus.disney.auth.DUser;
 import org.alkemy.campus.disney.model.Character.FictionalCharacter;
 import org.alkemy.campus.disney.repositories.CharacterRepository;
+import org.alkemy.campus.disney.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class DisneyApiApplication {
@@ -19,10 +22,8 @@ public class DisneyApiApplication {
   }
 
   @Bean
-  public CommandLineRunner demo(CharacterRepository repository) {
+  public CommandLineRunner demo(CharacterRepository repository, UserRepository userRepository) {
     return (args) -> {
-
-      long id = 1L;
 
       // save a few characters
       if (repository.count() == 0) {
@@ -33,33 +34,20 @@ public class DisneyApiApplication {
         repository.save(new FictionalCharacter("Thor"));
         log.info("Characters saved");
         log.info("");
-      } else {
-        id = repository.findAll().iterator().next().getId();
       }
 
-      // fetch all characters
-      log.info("Characters found with findAll():");
-      log.info("-------------------------------");
-      for (FictionalCharacter character : repository.findAll()) {
-        log.info(character.toString());
+      // Save an admin user
+      if (userRepository.count() == 0) {
+        log.info("Creating Admin User...");
+        log.info("mail= admin@alkemy.org; password= admin");
+        DUser user = new DUser();
+        user.getRoles().add("ADMIN");
+        userRepository.save(user.setMail("admin@alkemy.org")
+            .setPassword(new BCryptPasswordEncoder().encode("admin")));
+        log.info("Admin created");
+        log.info("");
       }
-      log.info("");
 
-      // fetch an individual character by ID
-      FictionalCharacter character = repository.findById(id).get();
-      log.info("FictionalCharacter found with findById(" + id + "):");
-      log.info("--------------------------------");
-      log.info(character.toString());
-      log.info("");
-
-      // fetch characters by last name
-      log.info("FictionalCharacter found with findByName('Tony'):");
-      log.info("--------------------------------------------");
-      repository.findByName("Tony").forEach(tony -> {
-        log.info(tony.toString());
-      });
-
-      log.info("");
     };
   }
 
