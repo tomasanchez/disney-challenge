@@ -146,8 +146,9 @@ public class FictionalCharacter extends PersitentEntity {
   // Methods
   // --------------------------------------------------------------------------------------------
 
-  public Map<String, String> toShortMap() {
-    Map<String, String> shortMap = new HashMap<>();
+  public Map<String, ?> toShortMap() {
+    Map<String, Object> shortMap = new HashMap<>();
+    shortMap.put("id", this.getId());
     shortMap.put("image", this.getImage());
     shortMap.put("name", this.getName());
     return shortMap;
