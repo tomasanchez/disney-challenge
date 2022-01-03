@@ -3,6 +3,7 @@ package org.alkemy.campus.disney;
 import org.alkemy.campus.disney.app.Bootstrap;
 import org.alkemy.campus.disney.repositories.AppearanceRepository;
 import org.alkemy.campus.disney.repositories.CharacterRepository;
+import org.alkemy.campus.disney.repositories.GenreRepository;
 import org.alkemy.campus.disney.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +23,10 @@ public class DisneyApiApplication {
 
   @Bean
   public CommandLineRunner demo(CharacterRepository fcRepository, UserRepository userRepository,
-      AppearanceRepository movieRepository) {
+      AppearanceRepository movieRepository, GenreRepository genreRepository) {
     return (args) -> {
 
-      Bootstrap bs = new Bootstrap(fcRepository, userRepository, movieRepository);
+      Bootstrap bs = new Bootstrap(fcRepository, userRepository, movieRepository, genreRepository);
 
       // save a few characters
       if (fcRepository.count() == 0) {
@@ -44,13 +45,23 @@ public class DisneyApiApplication {
         log.info("");
       }
 
-      // Save an admin user
+      // Saves a set of Genres
+      if (genreRepository.count() == 0) {
+        log.info("Saving Genres...");
+        bs.demoGenres();
+        log.info("Genres created");
+        log.info("");
+      }
+
+      // Saves A movi for each character
       if (movieRepository.count() == 0) {
         log.info("Saving Movies...");
         bs.demoMovies();
         log.info("Solo movies created");
         log.info("");
       }
+
+
 
     };
   }
