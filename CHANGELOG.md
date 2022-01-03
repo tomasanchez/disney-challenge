@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/tomasanchez/disney-challenge/compare/v0.2.0...v0.3.0) (2022-01-03)
+
+
+### Features
+
+* **api:** CRUD for Characters ([bf0caae](https://github.com/tomasanchez/disney-challenge/commit/bf0caae6ca8f2f63399f22d3052f22e15d214333))
+* **api:** exposed characters endpoint ([23585a4](https://github.com/tomasanchez/disney-challenge/commit/23585a4112adc907f6e9c353503230febbc294b1))
+* **api:** query params ([b2e032a](https://github.com/tomasanchez/disney-challenge/commit/b2e032a2fd106367285a8c1fba88ce7e165b8d31))
+* **rest:** base controller not found exception ([fe280cd](https://github.com/tomasanchez/disney-challenge/commit/fe280cd0ff43021467b4b31acfa955896ecd2ba3))
+
+
+### Bug Fixes
+
+* **crud:** delete on not found entity no longer OK status ([4930b65](https://github.com/tomasanchez/disney-challenge/commit/4930b65948283beda8ae69b422aa35da2a06ff3d))
+* **design:** changed endpoint to put ([440bd18](https://github.com/tomasanchez/disney-challenge/commit/440bd18a508050e201f667b14bac25b353e04184))
+
 ## [0.2.0](https://github.com/tomasanchez/disney-challenge/compare/v0.1.0...v0.2.0) (2022-01-02)
 
 
