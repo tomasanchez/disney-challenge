@@ -69,6 +69,14 @@ public abstract class Appearance extends PersitentEntity {
 
   public Appearance() {}
 
+  public Appearance(AppearanceDTO dto) {
+
+    setTitle(dto.getTitle());
+    setReleaseDate(Objects.requireNonNullElse(dto.getReleaseDate(), LocalDate.now()));
+    setRating(Objects.requireNonNullElse(dto.getRating(), 0.0f));
+
+  }
+
   // --------------------------------------------------------------------------------------------
   // Getters & Setters
   // --------------------------------------------------------------------------------------------

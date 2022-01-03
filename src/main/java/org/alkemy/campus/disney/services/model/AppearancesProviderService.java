@@ -8,8 +8,12 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import org.alkemy.campus.disney.model.Appareance.Appearance;
+import org.alkemy.campus.disney.model.Appareance.AppearanceDTO;
+import org.alkemy.campus.disney.model.Appareance.Movie;
+import org.alkemy.campus.disney.model.Appareance.Series;
 import org.alkemy.campus.disney.model.Character.FictionalCharacter;
 import org.alkemy.campus.disney.repositories.AppearanceRepository;
+import org.alkemy.campus.disney.repositories.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,9 @@ public class AppearancesProviderService {
 
   @Autowired
   AppearanceRepository movieRepository;
+
+  @Autowired
+  CharacterRepository characterRepository;
 
   // --------------------------------------------------------------------------------------------
   // Getters
@@ -54,10 +61,17 @@ public class AppearancesProviderService {
   public List<?> getMovies() {
     return shorten(movieRepository.findAll());
   }
+
   // --------------------------------------------------------------------------------------------
   // Save
   // --------------------------------------------------------------------------------------------
+  public Appearance save(AppearanceDTO dto) {
+    Appearance appearance = dto.getType().equals(1) ? new Movie(dto) : new Series(dto);
 
+    characterRepository.findAllById(dto.getCharacters()).forEach(c -> appearance.addCharacter(c));
+
+    return movieRepository.save(appearance);
+  }
   // --------------------------------------------------------------------------------------------
   // Remove
   // --------------------------------------------------------------------------------------------
