@@ -8,6 +8,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.alkemy.campus.disney.core.db.PersitentEntity;
 import org.alkemy.campus.disney.exceptions.character.InvalidAgeException;
@@ -25,8 +30,13 @@ public class FictionalCharacter extends PersitentEntity {
   // --------------------------------------------------------------------------------------------
 
   private String image;
+  @NotNull
+  @NotEmpty
+  @NotBlank
   private String name;
+  @Min(value = 0)
   private int age;
+  @DecimalMin("0.0")
   private float weight;
   private String story;
   @JsonManagedReference
@@ -46,6 +56,13 @@ public class FictionalCharacter extends PersitentEntity {
     setName(name);
   }
 
+  public FictionalCharacter(FictionalCharacterDTO dto) {
+    setImage(dto.getImage());
+    setAge(dto.getAge());
+    setName(dto.getName());
+    setWeight(dto.getWeight());
+    setStory(dto.getStory());
+  }
   // --------------------------------------------------------------------------------------------
   // Getters & Setters
   // --------------------------------------------------------------------------------------------

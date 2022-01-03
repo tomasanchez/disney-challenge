@@ -1,4 +1,4 @@
-package org.alkemy.campus.disney.controller;
+package org.alkemy.campus.disney.api;
 
 import org.alkemy.campus.disney.auth.DUser;
 import org.alkemy.campus.disney.repositories.UserRepository;
@@ -26,7 +26,7 @@ public class UserControllerIntegrationTest {
   private UserRepository userRepository;
 
   @Autowired
-  UserController userController;
+  UserAuthRestController userController;
 
   @Autowired
   private MockMvc mockMvc;

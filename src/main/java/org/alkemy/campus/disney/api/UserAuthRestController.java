@@ -1,4 +1,4 @@
-package org.alkemy.campus.disney.controller;
+package org.alkemy.campus.disney.api;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -11,9 +11,7 @@ import org.alkemy.campus.disney.services.auth.DUserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(path = "auth")
-public class UserController {
+public class UserAuthRestController extends BaseRestController {
 
   @Autowired
   DUserAuthService uService;
@@ -41,18 +39,6 @@ public class UserController {
     URI uri = URI.create(
         ServletUriComponentsBuilder.fromCurrentContextPath().path("/auth/register").toUriString());
     return ResponseEntity.created(uri).body(uService.registerUser(user));
-  }
-
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-    Map<String, String> errors = new HashMap<>();
-    ex.getBindingResult().getAllErrors().forEach((error) -> {
-      String fieldName = ((FieldError) error).getField();
-      String errorMessage = error.getDefaultMessage();
-      errors.put(fieldName, errorMessage);
-    });
-    return errors;
   }
 
   @ResponseStatus(HttpStatus.CONFLICT)
