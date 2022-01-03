@@ -43,7 +43,7 @@ public abstract class Appearance extends PersitentEntity {
   // Properties
   // --------------------------------------------------------------------------------------------
 
-  private String image;
+  private String image = "";
   @NotNull
   @NotEmpty
   @NotBlank
@@ -129,7 +129,7 @@ public abstract class Appearance extends PersitentEntity {
   }
 
   public Appearance setGenre(Genre genre) {
-    this.genre = Objects.requireNonNull(genre);
+    this.genre = genre;
     return this;
   }
 
@@ -171,7 +171,10 @@ public abstract class Appearance extends PersitentEntity {
     return shortMap;
   }
 
-
+  public Appearance detachRelationShips() {
+    getCharacters().forEach(c -> removeCharacter(c));
+    return setGenre(null);
+  }
 
   // --------------------------------------------------------------------------------------------
   // Relational Methods

@@ -14,6 +14,7 @@ import org.alkemy.campus.disney.model.Appareance.Series;
 import org.alkemy.campus.disney.model.Character.FictionalCharacter;
 import org.alkemy.campus.disney.repositories.AppearanceRepository;
 import org.alkemy.campus.disney.repositories.CharacterRepository;
+import org.alkemy.campus.disney.repositories.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,9 @@ public class AppearancesProviderService {
 
   @Autowired
   CharacterRepository characterRepository;
+
+  @Autowired
+  GenreRepository genreRepository;
 
   // --------------------------------------------------------------------------------------------
   // Getters
@@ -66,16 +70,25 @@ public class AppearancesProviderService {
   // Save
   // --------------------------------------------------------------------------------------------
   public Appearance save(AppearanceDTO dto) {
-    Appearance appearance = dto.getType().equals(1) ? new Movie(dto) : new Series(dto);
+    Appearance appearance = dto.getType() == 2 ? new Series(dto) : new Movie(dto);
 
     characterRepository.findAllById(dto.getCharacters()).forEach(c -> appearance.addCharacter(c));
 
+
+    genreRepository.findById(dto.getGenre()).ifPresentOrElse(g -> appearance.setGenre(g),
+        EntityNotFoundException::new);
+
     return movieRepository.save(appearance);
   }
+
   // --------------------------------------------------------------------------------------------
   // Remove
   // --------------------------------------------------------------------------------------------
 
+  public void delete(long id) {
+    movieRepository.save(getMovie(id).detachRelationShips());
+    movieRepository.deleteById(id);
+  }
   // --------------------------------------------------------------------------------------------
   // Internal Methods
   // --------------------------------------------------------------------------------------------
