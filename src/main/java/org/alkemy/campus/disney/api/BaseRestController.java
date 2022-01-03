@@ -2,6 +2,7 @@ package org.alkemy.campus.disney.api;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,6 +22,14 @@ public abstract class BaseRestController {
       String errorMessage = error.getDefaultMessage();
       errors.put(fieldName, errorMessage);
     });
+    return errors;
+  }
+
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler(EntityNotFoundException.class)
+  public Map<String, String> handleEntityNotFound(EntityNotFoundException ex) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("error", ex.getMessage());
     return errors;
   }
 
