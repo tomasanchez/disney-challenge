@@ -92,7 +92,7 @@ public class CharactersRestControllerTest {
     Mockito.when(characterRepository.findById(0L))
         .thenReturn(Optional.of(new FictionalCharacter()));
     mockMvc
-        .perform(MockMvcRequestBuilders.patch(route.concat("/0")).content(getJson())
+        .perform(MockMvcRequestBuilders.put(route.concat("/0")).content(getJson())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
   }
@@ -101,7 +101,7 @@ public class CharactersRestControllerTest {
   @WithUserDetails("admin@alkemy.org")
   void whenPatch_ANotExistingCharacter_andLoggedIn_thenNotFound() throws Exception {
     mockMvc
-        .perform(MockMvcRequestBuilders.patch(route.concat("/0")).content(getJson())
+        .perform(MockMvcRequestBuilders.put(route.concat("/0")).content(getJson())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isNotFound());
   }
