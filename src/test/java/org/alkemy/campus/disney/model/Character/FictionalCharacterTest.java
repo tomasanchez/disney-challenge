@@ -33,7 +33,7 @@ public class FictionalCharacterTest {
   @Test
   void characterDoesParseToJson() {
     assertEquals(
-        "{\"id\":null,\"image\":null,\"name\":null,\"age\":0,\"weight\":0.0,\"story\":null,\"appearances\":[]}",
+        "{\"id\":null,\"image\":\"\",\"name\":null,\"age\":0,\"weight\":0.0,\"story\":null,\"appearances\":[]}",
         character.toString());
   }
 }
