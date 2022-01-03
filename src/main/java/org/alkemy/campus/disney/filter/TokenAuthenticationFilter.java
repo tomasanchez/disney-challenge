@@ -1,24 +1,20 @@
 package org.alkemy.campus.disney.filter;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.alkemy.campus.disney.auth.DUser;
+import org.alkemy.campus.disney.tools.validation.token.TokenValidator;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -51,18 +47,12 @@ public class TokenAuthenticationFilter extends UsernamePasswordAuthenticationFil
       FilterChain chain, Authentication authentication) throws IOException, ServletException {
 
     User user = (User) authentication.getPrincipal();
-    Algorithm algorithm = Algorithm.HMAC256("notForProduction".getBytes());
+    String issuer = request.getRequestURL().toString();
+    TokenValidator tokenValidator = new TokenValidator();
 
     // Generating Tokens
-    String accesToken = JWT.create().withSubject(user.getUsername())
-        .withExpiresAt(new Date(System.currentTimeMillis() + TEN_MINUTES))
-        .withIssuer(request.getRequestURL().toString()).withClaim("roles", user.getAuthorities()
-            .stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-        .sign(algorithm);
-
-    String refreshToken = JWT.create().withSubject(user.getUsername())
-        .withExpiresAt(new Date(System.currentTimeMillis() + TEN_MINUTES * 4))
-        .withIssuer(request.getRequestURL().toString()).sign(algorithm);
+    String accesToken = tokenValidator.generateTokenForUser(user, TEN_MINUTES, issuer, true);
+    String refreshToken = tokenValidator.generateTokenForUser(user, TEN_MINUTES * 4, issuer, false);
 
 
     Map<String, String> tokens = new HashMap<String, String>();

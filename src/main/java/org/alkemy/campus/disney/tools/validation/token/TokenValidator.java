@@ -3,21 +3,29 @@ package org.alkemy.campus.disney.tools.validation.token;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator.Builder;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
 public class TokenValidator {
 
   private static final String SECRET = "notForProduction";
   private static final String TOKEN_BREARER_PREFIX = "Bearer ";
+  private Algorithm algorithm;
   private JWTVerifier verifier;
 
   public TokenValidator() {
-    verifier = JWT.require(Algorithm.HMAC256(SECRET.getBytes())).build();
+    algorithm = Algorithm.HMAC256(SECRET.getBytes());
+    verifier = JWT.require(algorithm).build();
   }
 
   /**
@@ -30,6 +38,25 @@ public class TokenValidator {
     return obtainUserAuthToken(decodeToken(obtainTokenFromHeader(authHeader)));
   }
 
+  /**
+   * Generates an authentication token for an User.
+   * 
+   * @param user from springboot userdetails
+   * @param expirationInMinutes the expiration time in minutes
+   * @param issuer the issuer value
+   * @param withClaims wheter to sign with claims
+   * @return a generated token
+   */
+  public String generateTokenForUser(User user, int expirationInMinutes, String issuer,
+      boolean withClaims) {
+
+    Builder jwtBuilder = JWT.create().withSubject(user.getUsername())
+        .withExpiresAt(new Date(System.currentTimeMillis() + expirationInMinutes))
+        .withIssuer(issuer);
+
+    return withClaims ? jwtBuilder.withClaim("roles", obtainAuthorities(user)).sign(algorithm)
+        : jwtBuilder.sign(algorithm);
+  }
 
   /**
    * Obtains a tokeken from the authentication header
@@ -76,5 +103,16 @@ public class TokenValidator {
     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
     Arrays.stream(roles).forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));
     return authorities;
+  }
+
+  /**
+   * Obtains an user authorities list.
+   * 
+   * @param user to authorize
+   * @return a list of authorities.
+   */
+  private List<String> obtainAuthorities(User user) {
+    return user.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+        .collect(Collectors.toList());
   }
 }
