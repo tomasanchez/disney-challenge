@@ -14,16 +14,15 @@ public class FictionalCharacterDTO implements Serializable {
   // --------------------------------------------------------------------------------------------
   // Properties
   // --------------------------------------------------------------------------------------------
-
   @NotNull
   @NotEmpty
   @NotBlank
   String name;
   String image;
   @Min(value = 0)
-  private int age;
+  private Integer age;
   @DecimalMin("0.0")
-  private float weight;
+  private Float weight;
   private String story;
   List<Long> appearances = new ArrayList<>();
 
@@ -47,7 +46,7 @@ public class FictionalCharacterDTO implements Serializable {
     this.image = image;
   }
 
-  public int getAge() {
+  public Integer getAge() {
     return age;
   }
 
@@ -55,7 +54,7 @@ public class FictionalCharacterDTO implements Serializable {
     this.age = age;
   }
 
-  public float getWeight() {
+  public Float getWeight() {
     return weight;
   }
 

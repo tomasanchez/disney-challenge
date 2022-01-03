@@ -3,6 +3,7 @@ package org.alkemy.campus.disney.model.Character;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ public class FictionalCharacter extends PersitentEntity {
   // Properties
   // --------------------------------------------------------------------------------------------
 
-  private String image;
+  private String image = "";
   @NotNull
   @NotEmpty
   @NotBlank
@@ -58,11 +59,12 @@ public class FictionalCharacter extends PersitentEntity {
 
   public FictionalCharacter(FictionalCharacterDTO dto) {
     setImage(dto.getImage());
-    setAge(dto.getAge());
+    setAge((int) Objects.requireNonNullElse(dto.getAge(), 0));
     setName(dto.getName());
-    setWeight(dto.getWeight());
+    setWeight((float) Objects.requireNonNullElse(dto.getWeight(), 0.0f));
     setStory(dto.getStory());
   }
+
   // --------------------------------------------------------------------------------------------
   // Getters & Setters
   // --------------------------------------------------------------------------------------------
@@ -149,6 +151,16 @@ public class FictionalCharacter extends PersitentEntity {
     shortMap.put("image", this.getImage());
     shortMap.put("name", this.getName());
     return shortMap;
+  }
+
+  public FictionalCharacter update(FictionalCharacterDTO dto) {
+
+    this.name = Objects.requireNonNullElse(dto.getName(), name);
+    this.image = Objects.requireNonNullElse(dto.getImage(), Objects.isNull(image) ? "" : image);
+    this.age = Objects.requireNonNullElse(dto.getAge(), age);
+    this.weight = Objects.requireNonNullElse(dto.getWeight(), weight);
+
+    return this;
   }
   // --------------------------------------------------------------------------------------------
   // Relational Methods
