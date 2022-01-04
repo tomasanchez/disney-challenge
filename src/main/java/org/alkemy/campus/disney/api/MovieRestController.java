@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,9 +58,20 @@ public class MovieRestController extends BaseRestController {
     return ResponseEntity.created(uri).body(movieService.save(dto));
   }
 
+
+  // --------------------------------------------------------------------------------------------
+  // Patch/Put
+  // --------------------------------------------------------------------------------------------
+
+  @PutMapping(path = "/{id}", produces = "application/json", consumes = {"application/json"})
+  public ResponseEntity<Appearance> updateCharacter(@PathVariable long id,
+      @Validated @RequestBody AppearanceDTO dto) {
+    return ResponseEntity.ok(movieService.save(id, dto));
+  }
+
   // --------------------------------------------------------------------------------------------
   // Delete
-
+  // --------------------------------------------------------------------------------------------
 
   @DeleteMapping(path = "/{id}", produces = "application/json")
   public ResponseEntity<?> deleteCharacter(@PathVariable long id) {

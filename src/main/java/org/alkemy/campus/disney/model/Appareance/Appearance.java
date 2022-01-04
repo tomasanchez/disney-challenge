@@ -171,6 +171,16 @@ public abstract class Appearance extends PersitentEntity {
     return shortMap;
   }
 
+  public Appearance update(AppearanceDTO dto) {
+
+    this.title = Objects.requireNonNullElse(dto.getTitle(), title);
+    this.image = Objects.requireNonNullElse(dto.getImage(), Objects.isNull(image) ? "" : image);
+    this.releaseDate = Objects.requireNonNullElse(dto.getReleaseDate(), releaseDate);
+    this.rating = Objects.requireNonNullElse(dto.getRating(), rating);
+
+    return this;
+  }
+
   public Appearance detachRelationShips() {
     getCharacters().forEach(c -> removeCharacter(c));
     return setGenre(null);

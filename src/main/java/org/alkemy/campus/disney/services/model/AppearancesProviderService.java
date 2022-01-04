@@ -3,6 +3,7 @@ package org.alkemy.campus.disney.services.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
@@ -69,16 +70,33 @@ public class AppearancesProviderService {
   // --------------------------------------------------------------------------------------------
   // Save
   // --------------------------------------------------------------------------------------------
+
   public Appearance save(AppearanceDTO dto) {
     Appearance appearance = dto.getType() == 2 ? new Series(dto) : new Movie(dto);
 
-    characterRepository.findAllById(dto.getCharacters()).forEach(c -> appearance.addCharacter(c));
+    putCharacters(dto, appearance);
 
-
-    genreRepository.findById(dto.getGenre()).ifPresentOrElse(g -> appearance.setGenre(g),
-        EntityNotFoundException::new);
+    putGenre(dto, appearance);
 
     return movieRepository.save(appearance);
+  }
+
+  public Appearance save(long id, AppearanceDTO dto) {
+    Appearance appearance;
+
+    try {
+      appearance = getMovie(id);
+    } catch (EntityNotFoundException e) {
+      return save(dto);
+    }
+
+    // Updates Genre
+    putGenre(dto, appearance);
+
+    // Updates Characters
+    putCharacters(dto, appearance);
+
+    return movieRepository.save(appearance.update(dto));
   }
 
   // --------------------------------------------------------------------------------------------
@@ -97,4 +115,36 @@ public class AppearancesProviderService {
     return appareances.stream().map(Appearance::toShortMap).collect(Collectors.toList());
   }
 
+  private void putGenre(AppearanceDTO dto, Appearance appearance) {
+
+    Long genreId = dto.getGenre();
+
+    // If null do nothing
+    if (Objects.nonNull(genreId)) {
+      // When Genre ID is valid, overwrite
+      if (genreId > 0) {
+        genreRepository.findById(genreId).ifPresentOrElse(g -> appearance.setGenre(g),
+            EntityNotFoundException::new);
+      }
+      // else detach relationship
+      else {
+        appearance.setGenre(null);
+      }
+    }
+  }
+
+  private void putCharacters(AppearanceDTO dto, Appearance appearance) {
+    List<Long> characterIds = dto.getCharacters();
+    // If null do nothing
+    if (Objects.nonNull(characterIds)) {
+      // When not empty
+      if (!characterIds.isEmpty()) {
+        characterRepository.findAllById(characterIds).forEach(c -> appearance.addCharacter(c));
+      }
+      // When empty delete all entries
+      else {
+        appearance.getCharacters().clear();
+      }
+    }
+  }
 }
