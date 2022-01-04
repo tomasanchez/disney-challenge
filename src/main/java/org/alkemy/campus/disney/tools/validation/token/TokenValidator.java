@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.User;
 
 public class TokenValidator {
 
-  private static final String SECRET = "notForProduction";
+  private static final String SECRET = "n8*<*H^gUdSa@?>R_";
   private static final String TOKEN_BREARER_PREFIX = "Bearer ";
   private Algorithm algorithm;
   private JWTVerifier verifier;
