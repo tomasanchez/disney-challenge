@@ -19,10 +19,10 @@ public class SGService implements MailerService {
   private static final String CONTENT_TYPE = "text/plain";
   private static final String END_POINT = "mail/send";
 
-  @Value("${sg.api.key}")
+  @Value("${sg.api.key:notARealKey}")
   private String apiKey;
 
-  @Value("${def.mail.sender}")
+  @Value("${def.mail.sender:your@test.com}")
   private String mailSender;
 
   @Override
