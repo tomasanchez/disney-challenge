@@ -6,7 +6,7 @@
       "description": "A SendGrid API Key. See <https://sendgrid.com/>"
     },
     {
-      "name": "mail.sender",
+      "name": "def.mail.sender",
       "type": "java.lang.String",
       "description": "The sender email address'"
     }
