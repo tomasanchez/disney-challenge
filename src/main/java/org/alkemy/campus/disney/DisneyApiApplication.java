@@ -34,6 +34,8 @@ public class DisneyApiApplication {
         bs.demoCharacters();
         log.info("Characters saved");
         log.info("");
+      } else {
+        log.info("There are already characters - not initializing");
       }
 
       // Save an admin user
@@ -43,6 +45,8 @@ public class DisneyApiApplication {
         bs.demoUsers();
         log.info("Admin created");
         log.info("");
+      } else {
+        log.info("There are already users - not initializing");
       }
 
       // Saves a set of Genres
@@ -51,6 +55,8 @@ public class DisneyApiApplication {
         bs.demoGenres();
         log.info("Genres created");
         log.info("");
+      } else {
+        log.info("There are already genres - not initializing");
       }
 
       // Saves A movi for each character
@@ -59,6 +65,8 @@ public class DisneyApiApplication {
         bs.demoMovies();
         log.info("Solo movies created");
         log.info("");
+      } else {
+        log.info("There already movies - not initializing");
       }
 
 
