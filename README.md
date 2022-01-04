@@ -15,6 +15,7 @@ You can read the challenge requiremnts in [this file](./docs/challenge.pdf)  (sp
       - [Entity Model](#entity-model)
       - [Auth](#auth)
     - [Routing](#routing)
+    - [API](#api)
   - [Recommended Guides & Readings](#recommended-guides--readings)
   - [License](#license)
 
@@ -74,6 +75,11 @@ NOTE: `/auth/**` has no authentication required, any other route will require a 
 
 ![App Routing](docs/assets/app-routing.svg)
 
+### API
+
+[Postman Documentation](https://documenter.getpostman.com/view/18996386/UVXbuKha#auth-info-4f8e950a-d2f1-4921-9bb7-8b06b6a45c15)
+
+Or see [API](API.md).
 
 ## Recommended Guides & Readings
 
