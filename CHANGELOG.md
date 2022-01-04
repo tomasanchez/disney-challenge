@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/tomasanchez/disney-challenge/compare/v0.3.0...v0.4.0) (2022-01-04)
+
+
+### Features
+
+* **api:** deep delete on Appearances ([d8bebcc](https://github.com/tomasanchez/disney-challenge/commit/d8bebcc03deaf4bda42edaa2fa8fdd86887e9e14))
+* **api:** rest controller for appearances ([8a14913](https://github.com/tomasanchez/disney-challenge/commit/8a149134537f6abea3a86bb092b1a71dd3b31f61))
+* **crud:** movies ([cf59bbb](https://github.com/tomasanchez/disney-challenge/commit/cf59bbb06cf7b0af363caa38dd7cf8c093fa9a8c))
+* **crud:** post appearances with characters ([b734bbf](https://github.com/tomasanchez/disney-challenge/commit/b734bbfba60bce41e4ffb1211f7816c57c71ba7f))
+* **crud:** searh params ([5548f39](https://github.com/tomasanchez/disney-challenge/commit/5548f39917bf0fbfed738ddaa837303ffa29a6eb))
+* demo data ([c52b258](https://github.com/tomasanchez/disney-challenge/commit/c52b258619218ccd66df8d2efd7453a66690fd76))
+* **model:** genres ([96c99da](https://github.com/tomasanchez/disney-challenge/commit/96c99da8194fad5f017dd832a17f23c115e4e972))
+
+
+### Bug Fixes
+
+* **appearance:** date and validators ([464f2d2](https://github.com/tomasanchez/disney-challenge/commit/464f2d23532bcdc27ddec64560e2e7bd764206fa))
+* **crud:** deep delete ([34f47f2](https://github.com/tomasanchez/disney-challenge/commit/34f47f224f023466c9236e492e8b233411c3cce1))
+* **genre filters:** false when genre is null ([62532ae](https://github.com/tomasanchez/disney-challenge/commit/62532aecba0f5068876366a53ec63d1ad3ace97a))
+* **validation:** no longer breaks on nulls ([3f4bc1d](https://github.com/tomasanchez/disney-challenge/commit/3f4bc1d7eaee5959b07ce0ae5c7dad33334f0a06))
+
 ## [0.3.0](https://github.com/tomasanchez/disney-challenge/compare/v0.2.0...v0.3.0) (2022-01-03)
 
 

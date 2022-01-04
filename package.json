@@ -1,6 +1,6 @@
 {
   "name": "disney-challenge",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "CHALLENGE BACKEND - Java Spring Boot (API) 🚀",
   "main": "index.js",
   "repository": "https://github.com/tomasanchez/disney-challenge.git",
