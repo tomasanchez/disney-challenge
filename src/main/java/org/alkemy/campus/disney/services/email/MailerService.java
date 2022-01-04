@@ -7,5 +7,23 @@ public interface MailerService {
 
   static final Logger logger = LoggerFactory.getLogger(MailerService.class);
 
-  public void sendEmail(String from, String to, String subject, String content);
+  /**
+   * Sends an email.
+   * 
+   * @param from sender mail
+   * @param to receiver mail
+   * @param subject of the email
+   * @param content of the email
+   */
+  public void send(String from, String to, String subject, String content);
+
+  /**
+   * Sends an email with the default email address.
+   * 
+   * @param to
+   * @param to receiver mail
+   * @param subject of the email
+   * @param content of the email
+   */
+  public void send(String to, String subject, String content);
 }
