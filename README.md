@@ -1,20 +1,22 @@
 # CHALLENGE BACKEND - Java Spring Boot (API) :rocket:
 
-This was a challenge by [ALkemy](https://www.alkemy.org/) solved by [Tomás Sánchez](https://github.com/tomasanchez)
+This was a challenge by [Alkemy](https://www.alkemy.org/) solved by [Tomás Sánchez](https://github.com/tomasanchez)
 
 You can read the challenge requiremnts in [this file](./docs/challenge.pdf)  (spanish).
 
 <hr></hr>
 
 ## Content
-- [Documentation](##Documentation)
-  - [Database Model](###Database-Model)
-  - [Application Design](###Application-Design)
-    - [Entity Model](####Entity-Model)
-    - [Auth](####Auth)
-    - [Routing](####Routing)
-- [Readings](##Recommended-Guides-&-Readings)
-- [License](##License)
+- [CHALLENGE BACKEND - Java Spring Boot (API) :rocket:](#challenge-backend---java-spring-boot-api-rocket)
+  - [Content](#content)
+  - [Documentation](#documentation)
+    - [Database Model](#database-model)
+    - [Application Design](#application-design)
+      - [Entity Model](#entity-model)
+      - [Auth](#auth)
+    - [Routing](#routing)
+  - [Recommended Guides & Readings](#recommended-guides--readings)
+  - [License](#license)
 
 <hr></hr>
 
