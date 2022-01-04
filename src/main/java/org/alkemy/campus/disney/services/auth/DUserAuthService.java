@@ -72,7 +72,8 @@ public class DUserAuthService implements AuthenticationService {
 
   private void sendWelcomeMail(DUser user) {
     String subject = "Welcome to Tomas' Application";
-    String content = "Hi!\n\nThank you for testing my application.\n\n\nBest wishes,\nTomás.";
+    String content =
+        "Hi!\n\nThank you for testing my application.\n\n\nBest wishes,\nTomás.\n\nSent via Java - Springboot Application";
     mailService.send(user.getMail(), subject, content);
   }
 

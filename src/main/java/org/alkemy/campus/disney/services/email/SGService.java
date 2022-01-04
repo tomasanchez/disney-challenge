@@ -21,11 +21,23 @@ public class SGService implements MailerService {
   @Value("${sg.api.key}")
   private String apiKey;
 
+  @Value("${def.mail.sender}")
+  private String mailSender;
+
   @Override
-  public void sendEmail(String from, String to, String subject, String content) {
+  public void send(String to, String subject, String content) {
+    send(mailSender, to, subject, content);
+  }
+
+  @Override
+  public void send(String from, String to, String subject, String content) {
     logger.info("Sending email to: ".concat(to));
     Mail email = createMail(from, to, subject, content);
-    makeSendRequest(email);
+    if (makeSendRequest(email)) {
+      logger.info("Mail sent!");
+    } else {
+      logger.error("Mail could not be sent!");
+    }
   }
 
   private Mail createMail(String sender, String receiver, String subject, String body) {
