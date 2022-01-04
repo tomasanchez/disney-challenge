@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "sg.api.key",
+      "type": "java.lang.String",
+      "description": "A SendGrid API Key. See <https://sendgrid.com/>"
+    },
+    {
+      "name": "mail.sender",
+      "type": "java.lang.String",
+      "description": "The sender email address'"
+    }
+  ]
+}
