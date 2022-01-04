@@ -198,7 +198,6 @@ public abstract class Appearance extends PersitentEntity {
 
   public Appearance removeCharacter(FictionalCharacter character) {
     getCharacters().remove(character);
-    character.removeAppearance(this);
     return this;
   }
 }
