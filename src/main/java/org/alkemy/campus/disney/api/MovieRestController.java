@@ -64,7 +64,7 @@ public class MovieRestController extends BaseRestController {
   // --------------------------------------------------------------------------------------------
 
   @PutMapping(path = "/{id}", produces = "application/json", consumes = {"application/json"})
-  public ResponseEntity<Appearance> updateCharacter(@PathVariable long id,
+  public ResponseEntity<Appearance> updateMovie(@PathVariable long id,
       @Validated @RequestBody AppearanceDTO dto) {
     return ResponseEntity.ok(movieService.save(id, dto));
   }

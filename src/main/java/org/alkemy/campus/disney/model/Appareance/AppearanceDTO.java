@@ -70,7 +70,7 @@ public class AppearanceDTO {
     return rating;
   }
 
-  public void setRating(float rating) {
+  public void setRating(Float rating) {
     this.rating = rating;
   }
 
@@ -86,7 +86,7 @@ public class AppearanceDTO {
     return genre;
   }
 
-  public void setGenre(long genre) {
+  public void setGenre(Long genre) {
     this.genre = genre;
   }
 

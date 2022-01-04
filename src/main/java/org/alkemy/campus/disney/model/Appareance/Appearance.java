@@ -49,7 +49,7 @@ public abstract class Appearance extends PersitentEntity {
   @NotBlank
   private String title;
   @Column(name = "releaseDate", columnDefinition = "DATE")
-  private LocalDate releaseDate;
+  private LocalDate releaseDate = LocalDate.now();
   @DecimalMin("0.0")
   @DecimalMax("5.0")
   private float rating;
