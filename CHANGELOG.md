@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/tomasanchez/disney-challenge/compare/v0.4.0...v1.0.0) (2022-01-04)
+
+
+### Features
+
+* add mail sender service ([88826c4](https://github.com/tomasanchez/disney-challenge/commit/88826c4d51c2d502c387dd7acde36d41e59fb25b))
+* character full CRUD ([43b55f5](https://github.com/tomasanchez/disney-challenge/commit/43b55f5f361eb72266711a9b01fb68f953189439))
+* support for default mail sender ([54a655b](https://github.com/tomasanchez/disney-challenge/commit/54a655bd3be68258e463d305901d2d20284eaf43))
+
 ## [0.4.0](https://github.com/tomasanchez/disney-challenge/compare/v0.3.0...v0.4.0) (2022-01-04)
 
 
