@@ -1,5 +1,6 @@
 package org.alkemy.campus.disney.services.email;
 
+import javax.servlet.http.HttpServletResponse;
 import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
@@ -57,7 +58,7 @@ public class SGService implements MailerService {
       request.setBody(mail.build());
       Response response = sg.api(request);
       logger.info(response.getBody());
-      return true;
+      return response.getStatusCode() == HttpServletResponse.SC_ACCEPTED;
     } catch (Exception e) {
       return false;
     }
