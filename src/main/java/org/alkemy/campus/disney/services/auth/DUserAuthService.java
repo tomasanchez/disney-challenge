@@ -57,7 +57,7 @@ public class DUserAuthService implements AuthenticationService {
 
     DUser createdUser = repository.save(user);
 
-    sendWelcomeMail(createdUser);
+    sendWelcomeMail(user);
 
     return createdUser;
   }

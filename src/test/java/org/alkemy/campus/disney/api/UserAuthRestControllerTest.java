@@ -2,6 +2,7 @@ package org.alkemy.campus.disney.api;
 
 import org.alkemy.campus.disney.auth.DUser;
 import org.alkemy.campus.disney.repositories.UserRepository;
+import org.alkemy.campus.disney.services.email.SGService;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -28,14 +29,20 @@ public class UserAuthRestControllerTest {
   @Autowired
   UserAuthRestController userController;
 
+
+  @MockBean
+  private SGService mailSender;
+
   @Autowired
   private MockMvc mockMvc;
 
   @Test
   public void whenPostRequestToUsersAndValidUser_thenCorrectResponse() throws Exception {
-    String user = "{\"password\": \"bob\", \"mail\" : \"bob@domain.com\"}";
+
+    DUser user = new DUser().setMail("notARealEmail@fortest.test").setPassword("aTestPassword");
+
     mockMvc
-        .perform(MockMvcRequestBuilders.post(route.concat("register")).content(user)
+        .perform(MockMvcRequestBuilders.post(route.concat("register")).content(user.toString())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isCreated());
   }
