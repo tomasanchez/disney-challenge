@@ -6,6 +6,7 @@ import java.util.Map;
 import org.alkemy.campus.disney.model.Appareance.Appearance;
 import org.alkemy.campus.disney.model.Appareance.AppearanceDTO;
 import org.alkemy.campus.disney.services.model.AppearancesProviderService;
+import org.alkemy.campus.disney.tools.validation.value.ValuesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,12 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 @RestController
 @RequestMapping("/movies")
+@Validated
 public class MovieRestController extends BaseRestController {
 
   // --------------------------------------------------------------------------------------------
@@ -36,8 +39,10 @@ public class MovieRestController extends BaseRestController {
   // --------------------------------------------------------------------------------------------
 
   @GetMapping(produces = "application/json")
-  public ResponseEntity<List<?>> getMovies() {
-    return ResponseEntity.ok(movieService.getMovies());
+  public ResponseEntity<List<?>> getMovies(@RequestParam(required = false) String title,
+      @RequestParam(required = false) Long genre,
+      @RequestParam(required = false) @ValuesAllowed(values = {"ASC", "DESC"}) String order) {
+    return ResponseEntity.ok(movieService.getMovies(title, genre, order));
   }
 
   @GetMapping("/{id}")

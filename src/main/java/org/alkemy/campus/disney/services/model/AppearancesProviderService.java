@@ -1,5 +1,6 @@
 package org.alkemy.campus.disney.services.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,7 @@ public class AppearancesProviderService {
     return movie.get();
   }
 
+
   public Map<String, ?> getMovieDTO(long id) {
     Appearance appearance = getMovie(id);
 
@@ -64,8 +66,84 @@ public class AppearancesProviderService {
   }
 
   public List<?> getMovies() {
-    return shorten(movieRepository.findAll());
+    return getMovies(null, null, null);
   }
+
+  public List<?> getMovies(String title, Long genre, String order) {
+
+    boolean hasTitle = !Objects.isNull(title);
+    boolean hasGenre = !Objects.isNull(genre);
+    boolean hasOrder = !Objects.isNull(order);
+
+    // Fail fast when nothin is specified
+    if (!hasTitle && !hasGenre && !hasOrder) {
+      return shorten(movieRepository.findAll());
+    }
+
+    // When Order
+    if (hasOrder) {
+      boolean isAsc = order.toUpperCase().equals("ASC");
+      boolean isDesc = order.toUpperCase().equals("DESC");
+
+      // Ascending order
+      if (isAsc) {
+
+        if (hasTitle && !hasGenre) {
+          return shorten(movieRepository.findByTitleOrderByReleaseDateAsc(title));
+        }
+
+        if (!hasTitle && hasGenre) {
+          return shorten(filterByGenre(movieRepository.findByOrderByTitleAsc(), genre));
+        }
+
+
+        if (hasTitle && hasGenre) {
+          return shorten(
+              filterByGenre(movieRepository.findByTitleOrderByReleaseDateAsc(title), genre));
+        }
+
+        return shorten(movieRepository.findByOrderByTitleAsc());
+      }
+      // Descending order
+      else if (isDesc) {
+
+        if (hasTitle && !hasGenre) {
+          return shorten(movieRepository.findByTitleOrderByReleaseDateDesc(title));
+        }
+
+        if (!hasTitle && hasGenre) {
+          return shorten(filterByGenre(movieRepository.findByOrderByTitleDesc(), genre));
+        }
+
+        if (hasTitle && hasGenre) {
+          return shorten(
+              filterByGenre(movieRepository.findByTitleOrderByReleaseDateDesc(title), genre));
+        }
+
+        return shorten(movieRepository.findByOrderByTitleDesc());
+      }
+
+    }
+    // When no order is specified
+    else {
+
+      if (hasTitle && !hasGenre) {
+        return shorten(movieRepository.findByTitle(title));
+      }
+
+      if (!hasTitle && hasGenre) {
+        return shorten(filterByGenre(movieRepository.findAll(), genre));
+      }
+
+      if (hasTitle && hasGenre) {
+        return shorten(filterByGenre(movieRepository.findByTitle(title), genre));
+      }
+
+    }
+
+    return new ArrayList<>();
+  }
+
 
   // --------------------------------------------------------------------------------------------
   // Save
@@ -107,6 +185,7 @@ public class AppearancesProviderService {
     movieRepository.save(getMovie(id).detachRelationShips());
     movieRepository.deleteById(id);
   }
+
   // --------------------------------------------------------------------------------------------
   // Internal Methods
   // --------------------------------------------------------------------------------------------
@@ -146,5 +225,9 @@ public class AppearancesProviderService {
         appearance.getCharacters().clear();
       }
     }
+  }
+
+  private List<Appearance> filterByGenre(List<Appearance> appearances, long id) {
+    return appearances.stream().filter(a -> a.getGenre().matches(id)).collect(Collectors.toList());
   }
 }

@@ -17,18 +17,17 @@ public interface AppearanceRepository extends CrudRepository<Appearance, Long> {
 
   List<Appearance> findByTitle(String title);
 
-  // List<Appearance> findByOrderbyTitleAsc();
+  List<Appearance> findByTitleOrderByReleaseDateAsc(String title);
 
-  // List<Appearance> findByOrderbyTitleDesc();
+  List<Appearance> findByTitleOrderByReleaseDateDesc(String title);
 
   // --------------------------------------------------------------------------------------------
-  // Find by Genre
+  // Order By Title
   // --------------------------------------------------------------------------------------------
 
-  List<Appearance> findByGenre(String genre);
+  List<Appearance> findByOrderByTitleAsc();
 
-  // List<Appearance> findByGenreOrderByTitleAsc(String genre);
+  List<Appearance> findByOrderByTitleDesc();
 
-  // List<Appearance> findByGenreOrderByTitleDesc(String genre);
 
 }
