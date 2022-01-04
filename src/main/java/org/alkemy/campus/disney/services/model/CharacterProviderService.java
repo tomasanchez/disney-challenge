@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import org.alkemy.campus.disney.model.Character.FictionalCharacter;
 import org.alkemy.campus.disney.model.Character.FictionalCharacterDTO;
+import org.alkemy.campus.disney.repositories.AppearanceRepository;
 import org.alkemy.campus.disney.repositories.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class CharacterProviderService {
 
   @Autowired
   CharacterRepository characterRepository;
+
+  @Autowired
+  AppearanceRepository movieRepository;
 
   // --------------------------------------------------------------------------------------------
   // Getters
@@ -86,7 +90,8 @@ public class CharacterProviderService {
   // --------------------------------------------------------------------------------------------
 
   public FictionalCharacter save(FictionalCharacterDTO dto) {
-    return characterRepository.save(new FictionalCharacter(dto));
+    FictionalCharacter character = new FictionalCharacter(dto);
+    return characterRepository.save(putAppearances(character, dto));
   }
 
   public FictionalCharacter save(FictionalCharacter character) {
@@ -94,7 +99,7 @@ public class CharacterProviderService {
   }
 
   public FictionalCharacter update(long id, FictionalCharacterDTO dto) {
-    return characterRepository.save(getCharacter(id).update(dto));
+    return characterRepository.save(putAppearances(getCharacter(id), dto).update(dto));
   }
 
   // --------------------------------------------------------------------------------------------
@@ -124,5 +129,23 @@ public class CharacterProviderService {
       long id) {
     return characters.stream().filter(c -> c.getAppearances().stream().anyMatch(a -> a.matches(id)))
         .collect(Collectors.toList());
+  }
+
+  public FictionalCharacter putAppearances(FictionalCharacter character,
+      FictionalCharacterDTO dto) {
+
+    List<Long> appIds = dto.getAppearances();
+
+    if (Objects.nonNull(appIds)) {
+
+      if (!appIds.isEmpty()) {
+
+        movieRepository.findAllById(appIds).forEach(a -> a.addCharacter(character));
+      } else {
+        character.getAppearances().clear();
+      }
+    }
+
+    return character;
   }
 }
