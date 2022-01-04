@@ -4,6 +4,20 @@ This was a challenge by [ALkemy](https://www.alkemy.org/) solved by [Tomás Sán
 
 You can read the challenge requiremnts in [this file](./docs/challenge.pdf)  (spanish).
 
+<hr></hr>
+
+## Content
+- [Documentation](##Documentation)
+  - [Database Model](###Database-Model)
+  - [Application Design](###Application-Design)
+    - [Entity Model](####Entity-Model)
+    - [Auth](####Auth)
+    - [Routing](####Routing)
+- [Readings](##Recommended-Guides-&-Readings)
+- [License](##License)
+
+<hr></hr>
+
 ## Documentation
 
 ### Database Model
@@ -34,9 +48,9 @@ There is a `@ManyToMany` relation ship between `FictionalCharacter` and `Appeara
 
 ![Class diagran for Entity-Model](./docs/assets/entity-model.svg)
 
-### Auth
+#### Auth
 
-Using `Spring Security`, in order to use a `Bearer Token` authentication, found the need to implement a custom `UserDetailsService` for the application's `DUser` 
+Using `Spring Security`, a in order to use a `JSON WebToken` authentication, found in the need to implement a custom `UserDetailsService` for the application's `DUser` 
 
 ![Auth Schema](./docs/assets/auth-schema.svg)
 
@@ -48,9 +62,15 @@ there are two different filters for `Authentication` and `Authorization`, in bot
 
 `TokenAuthorizationFilter` retrieves a token from the request, and using `TokenValidator` validates it, when it can't authorize, sends an error response.
 
-
-
 ![Token Authentication](./docs/assets/auth-token.svg)
+
+### Routing
+
+Each route has an associated controller, being these controllers rest, each one of them has a resource provider service.
+
+NOTE: `/auth/**` has no authentication required, any other route will require a `Bearer Token`
+
+![App Routing](docs/assets/app-routing.svg)
 
 
 ## Recommended Guides & Readings
@@ -58,12 +78,12 @@ there are two different filters for `Authentication` and `Authorization`, in bot
 * [Hibernate Inheritance Mapping](https://www.baeldung.com/hibernate-inheritance)
 * [Many-To-Many Relationship in JPA](https://www.baeldung.com/jpa-many-to-many)
 * [Working with Relationships in Spring Data REST](https://www.baeldung.com/spring-data-rest-relationships)
-* [Custom Validation in Request Parameters](https://stackoverflow.com/questions/59422883/spring-boot-custom-validation-in-request-params)
-* [Sending emails with SendGrid](https://medium.com/javarevisited/sending-emails-with-sendgrid-and-spring-boot-81e9637a1f05)
 * [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
 * [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
 * [Accessing JPA Data with REST](https://spring.io/guides/gs/accessing-data-rest/)
+* [How JWT works](https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html)
+
 
 ## License
 
