@@ -228,6 +228,8 @@ public class AppearancesProviderService {
   }
 
   private List<Appearance> filterByGenre(List<Appearance> appearances, long id) {
-    return appearances.stream().filter(a -> a.getGenre().matches(id)).collect(Collectors.toList());
+    return appearances.stream()
+        .filter(a -> Objects.isNull(a.getGenre()) ? false : a.getGenre().matches(id))
+        .collect(Collectors.toList());
   }
 }
