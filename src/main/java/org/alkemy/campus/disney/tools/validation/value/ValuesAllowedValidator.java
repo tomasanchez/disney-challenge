@@ -2,6 +2,7 @@ package org.alkemy.campus.disney.tools.validation.value;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -31,6 +32,10 @@ public class ValuesAllowedValidator implements ConstraintValidator<ValuesAllowed
   }
 
   private boolean validateValue(String value) {
-    return expectedValues.contains(value.toUpperCase());
+    try {
+      return expectedValues.contains(value.toUpperCase());
+    } catch (Exception e) {
+      return Objects.isNull(value);
+    }
   }
 }
