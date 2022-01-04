@@ -34,14 +34,36 @@ There is a `@ManyToMany` relation ship between `FictionalCharacter` and `Appeara
 
 ![Class diagran for Entity-Model](./docs/assets/entity-model.svg)
 
+### Auth
+
+Using `Spring Security`, in order to use a `Bearer Token` authentication, found the need to implement a custom `UserDetailsService` for the application's `DUser` 
+
+![Auth Schema](./docs/assets/auth-schema.svg)
+
+How it works
+
+there are two different filters for `Authentication` and `Authorization`, in both cases the aforementioned `AuthenticationManager` is injected.
+
+`TokenFilterAuthentication` retrieves the `DUser` from the `HttpServletRequest` and authenticates it. On successful authentication it adds a new generated token by the `TokenValidator` to the `HttpServletResponse`
+
+`TokenAuthorizationFilter` retrieves a token from the request, and using `TokenValidator` validates it, when it can't authorize, sends an error response.
+
+
+
+![Token Authentication](./docs/assets/auth-token.svg)
+
 
 ## Recommended Guides & Readings
 
-- [Hibernate Inheritance Mapping](https://www.baeldung.com/hibernate-inheritance)
-- [Many-To-Many Relationship in JPA](https://www.baeldung.com/jpa-many-to-many)
-- [Working with Relationships in Spring Data REST](https://www.baeldung.com/spring-data-rest-relationships)
-- [Custom Validation in Request Parameters](https://stackoverflow.com/questions/59422883/spring-boot-custom-validation-in-request-params)
-- [Sending emails with SendGrid](https://medium.com/javarevisited/sending-emails-with-sendgrid-and-spring-boot-81e9637a1f05)
+* [Hibernate Inheritance Mapping](https://www.baeldung.com/hibernate-inheritance)
+* [Many-To-Many Relationship in JPA](https://www.baeldung.com/jpa-many-to-many)
+* [Working with Relationships in Spring Data REST](https://www.baeldung.com/spring-data-rest-relationships)
+* [Custom Validation in Request Parameters](https://stackoverflow.com/questions/59422883/spring-boot-custom-validation-in-request-params)
+* [Sending emails with SendGrid](https://medium.com/javarevisited/sending-emails-with-sendgrid-and-spring-boot-81e9637a1f05)
+* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
+* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
+* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
+* [Accessing JPA Data with REST](https://spring.io/guides/gs/accessing-data-rest/)
 
 ## License
 
