@@ -150,7 +150,8 @@ public class AppearancesProviderService {
   // --------------------------------------------------------------------------------------------
 
   public Appearance save(AppearanceDTO dto) {
-    Appearance appearance = dto.getType() == 2 ? new Series(dto) : new Movie(dto);
+    Appearance appearance =
+        Objects.isNull(dto.getType()) || dto.getType() == 2 ? new Series(dto) : new Movie(dto);
 
     putCharacters(dto, appearance);
 
