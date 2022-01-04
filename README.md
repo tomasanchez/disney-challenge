@@ -2,7 +2,9 @@
 
 This was a challenge by [Alkemy](https://www.alkemy.org/) solved by [Tomás Sánchez](https://github.com/tomasanchez)
 
-You can read the challenge requiremnts in [this file](./docs/challenge.pdf)  (spanish).
+You can read the challenge requirements in [this file](./docs/challenge.pdf)  (spanish).
+
+**WARNING** you must provide the `sg.api.key` value of a SendGrind API Key and a `def.mail.sender` value for an email address in your `application.propertis` file  in order to be able to use the `MailerService`.
 
 <hr></hr>
 
